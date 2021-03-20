@@ -25,7 +25,10 @@ class DatabaseSeeder extends Seeder
         ]);
         factory(Organizer::class , 10)->create();
         factory(Event::class  , 50)->create();
+
+        $organizer = Organizer::first();
         $out =new ConsoleOutput();
         $out->writeln("Admin Email: $admin->email , Password : 123456789" );
+        $out->writeln("Organizer Email: $organizer->email , Password : 123456789" );
     }
 }
