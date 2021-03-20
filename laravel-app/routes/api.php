@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +13,44 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+//admin
+Route::group(['prefix' => 'admin', 'namespace' =>'Admin'], function() {
+
+    Route::post('auth/login', 'AuthController@login');
+
+
+    //authenticated routes protected by organizer guard
+    Route::group(['middleware' => 'auth:api'] , function () {
+
+        Route::group(['prefix' => 'events' ] , function () {
+            Route::get('/' , 'EventController@index');
+            Route::get('/show/{id}' , 'EventController@show');
+            Route::post('/change-status/{id}' , 'EventController@change_status');
+        });
+
+    });
+
 });
+
+//organizer
+Route::group(['prefix' => 'organizer', 'namespace' =>'Organizer'], function() {
+    Route::group(['prefix' => 'auth'], function() {
+
+        Route::post('/login', 'AuthController@login');
+        Route::post('/register', 'AuthController@register');
+
+    });
+
+    //authenticated routes protected by organizer guard
+    Route::group(['middleware' => 'auth:organizers'] , function () {
+
+        Route::group(['prefix' => 'events' ] , function () {
+            Route::get('/' , 'EventController@index');
+            Route::get('/show/{id}' , 'EventController@show');
+            Route::post('/update/{id}' , 'EventController@update');
+        });
+    });
+});
+
+
+

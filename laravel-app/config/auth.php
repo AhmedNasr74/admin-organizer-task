@@ -42,10 +42,16 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
+            'driver' => 'passport',
             'provider' => 'users',
             'hash' => false,
         ],
+
+        'organizers' => [
+            'driver' => 'passport',
+            'provider' => 'organizers',
+        ],
+
     ],
 
     /*
@@ -69,6 +75,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
+        ],
+        'organizers' => [
+            'driver' => 'eloquent',
+            'model' => App\Organizer::class,
         ],
 
         // 'users' => [
