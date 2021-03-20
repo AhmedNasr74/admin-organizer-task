@@ -17,6 +17,7 @@ class EventResource extends JsonResource
             'name' => $this->resource->name,
             'description' => $this->resource->description,
             'status' => $this->resource->status,
+            'created_at' => $this->resource->created_at->format("d-m-Y H:i"),
             'organizer' => [
                 'id' => $this->resource->organizer->id,
                 'name' => $this->resource->organizer->name,
