@@ -16,7 +16,7 @@ class EventController extends Controller
     {
         $q = auth()->guard('organizers')->user()->events()->orderByDesc('created_at');
         if ($request->get('name') != '')
-            $q->where('name' , $request->get('name'));
+            $q->where('name' , 'LIKE' , '%' . $request->get('name') .'%');
         if ($request->get('status') != '')
             $q->where('status' , $request->get('status'));
 

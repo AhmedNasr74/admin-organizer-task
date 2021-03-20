@@ -48,6 +48,7 @@ Route::group(['prefix' => 'organizer', 'namespace' =>'Organizer'], function() {
             Route::get('/' , 'EventController@index');
             Route::get('/show/{id}' , 'EventController@show');
             Route::post('/update/{id}' , 'EventController@update');
+            Route::post('/store' , 'EventController@store');
         });
     });
 });
