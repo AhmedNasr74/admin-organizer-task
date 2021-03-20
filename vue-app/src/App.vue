@@ -1,17 +1,17 @@
 <template>
   <div id="app">
-    
+    <div id="nav">
+      
 
-    <h1>Welcome to admin - event organizer task</h1>
-    
+      <router-view />
+    </div>
   </div>
 </template>
 
 <script>
-
 export default {
-  name: 'App'
-}
+  name: "App",
+};
 </script>
 
 <style>
@@ -21,6 +21,14 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>
