@@ -3,20 +3,23 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Event;
-use App\Events\CheckPendingEvents;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\EventResource;
 use App\Http\Resources\EventsResource;
-use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
 
-        $events = Event::with('organizer')->orderByDesc('id')->get();
-        event(new CheckPendingEvents($events));
+        $q = Event::with('organizer')->orderByDesc('id');
+        if ($request->get('name') != '')
+            $q->where('name' , $request->get('name'));
+        if ($request->get('status') != '')
+            $q->where('status' , $request->get('status'));
+        $events = $q->get();
 
         return $this->responseData(new EventsResource($events));
     }
